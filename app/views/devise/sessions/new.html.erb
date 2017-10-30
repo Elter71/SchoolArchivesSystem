@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-sm-3 center">
+    <h2>Panel logowania</h2>
+
+    <% if notice %>
+        <div class="alert alert-success">
+          <%= notice %>
+        </div>
+    <% end %>
+    <% if alert %>
+        <div class="alert alert-danger">
+          <%= alert %>
+        </div>
+    <% end %>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field">
+          <%= f.label :email, "Email" %><br/>
+          <%= f.email_field :email, autofocus: true %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password, "Hasło" %><br/>
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me, "Zapamietaj" %>
+            </div>
+        <% end -%>
+
+        <div class="">
+          <%= f.submit "Zaloguj" %>
+        </div>
+
+    <% end %>
+    <br/>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

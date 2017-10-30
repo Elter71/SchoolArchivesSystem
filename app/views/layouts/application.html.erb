@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SchoolArchives</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://unpkg.com/vue"></script>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= csrf_meta_tags %>
+
+</head>
+
+<body>
+<div class="container-fluid">
+  <% if user_signed_in? %>
+      <!-- TODO dodanie alertów komunikatów jako box z js-->
+      <div class="row content">
+        <div class="col-sm-2 sidenav">
+          <h4>Archiwum szkoły</h4>
+          <ul class="nav nav-pills nav-stacked">
+            <li class="<%= is_active(root_path) %>"><%= link_to("Lista postow", root_path, method: :get) %></li>
+            <li class="<%= is_active(post_new_path) %>"><%= link_to("Nowy post", post_new_path, method: :get) %></li>
+            <%if current_user.role.id == Role.find_by_name("admin").id%>
+                <li class="<%= is_active(user_settings_path) %>"><%= link_to("Ustawienia", user_settings_path, method: :get) %></li>
+            <%end %>
+            <li><%= link_to("Wyloguj się", destroy_user_session_path, method: :delete) %></li>
+          </ul>
+          <br>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Wpisz tag..">
+            <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+          </div>
+        </div>
+
+        <div class="col-sm-10">
+          <%= yield %>
+        </div>
+      </div>
+
+      </div>
+
+      <footer class="container-fluid">
+        <p></p>
+      </footer>
+  <% else %>
+      <div class="content">
+        <%= yield %>
+      </div>
+  <% end %>
+
+  </body>
+<%= javascript_include_tag 'application' %>
+</html>
