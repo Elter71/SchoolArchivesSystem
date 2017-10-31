@@ -33,6 +33,7 @@ gem 'devise'
 gem 'bootstrap'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'cancancan'
+gem 'slim-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
