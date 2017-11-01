@@ -1,6 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
 
-
   def update
     update_services = UpdateServices.new(self)
     if current_user.ability.can? :change, Role

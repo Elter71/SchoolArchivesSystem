@@ -3,12 +3,21 @@
 pl:
   activerecord:
     attributes:
+      post:
+        title: "Tytuł "
+        description: "Opis "
       user:
         password: "Hasło"
         role: "Role "
         password_confirmation: "Hasła"
     errors:
       models:
+        post:
+          attributes:
+            title:
+              blank: "nie może być pusty."
+            description:
+              blank: "nie może być pusty."
         user:
           attributes:
             password:

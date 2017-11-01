@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :role
+  has_many :posts
   before_validation :set_default_role
   validates_with UserValidator
 
@@ -12,7 +13,7 @@ class User < ApplicationRecord
   end
 
   def ability
-    @ability ||= Ability.new(self)
+    Ability.new(self)
   end
 
   private

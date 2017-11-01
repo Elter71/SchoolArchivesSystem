@@ -9,6 +9,7 @@ class Ability
   private def user(me)
     can :create, :post
     can :manage, me
+    can :delete, me.post
   end
 
   private def admin
