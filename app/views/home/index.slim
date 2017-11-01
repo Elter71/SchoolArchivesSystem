@@ -1,0 +1,14 @@
+h1 <small>Ostatnio dodane</small>
+hr
+- @post.each do |post|
+  div
+    h2 = post.title
+    h5 <span class="glyphicon glyphicon-time"></span> Dodane przez #{post.user.first_name} #{post.user.last_name}, #{post.created_at}
+    h5 <span class="label label-info">#{post.tag}</span>
+    div class="row"
+      div class="col-sm-3"
+        img class="img-thumbnail" src="#{post.thumbnail}"
+      div class="col-sm-8"
+        p
+          = post.description
+  hr
