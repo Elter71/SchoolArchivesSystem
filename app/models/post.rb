@@ -18,7 +18,7 @@ class Post < ApplicationRecord
   private
 
   def create_ftp_session
-    Net::FTP.open('192.168.0.105', 'ftpp', 'admin') do |ftp|
+    Net::FTP.open(Configuration.instance.ftp_server, Configuration.instance.ftp_user, Configuration.instance.ftp_user_password) do |ftp|
       ftp.passive = true
       yield ftp
     end
@@ -37,9 +37,9 @@ class Post < ApplicationRecord
   end
 
   def get_resources(path)
-    unless File.read(path)
-      create_ftp_session {|ftp| resources_from_ftp(ftp, path)}
-    end
+    # unless File.read(path)
+    create_ftp_session {|ftp| resources_from_ftp(ftp, path)}
+    # end
     path.remove "#{Rails.root}/public/"
   end
 
