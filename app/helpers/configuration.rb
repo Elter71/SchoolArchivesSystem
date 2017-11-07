@@ -1,11 +1,8 @@
 class Configuration
-  attr_reader :ftp_server, :ftp_user, :ftp_user_password, :server_path
+  attr_reader :server_path
 
   def initialize
-    @ftp_server = 'localhost'
-    @ftp_user = 'ftpp'
-    @ftp_user_password = 'admin'
-    @server_path = '/home/ftpp/ftp'
+    @server_path = "#{Rails.root}/server/ftp/"
   end
 
   @@instance = Configuration.new
