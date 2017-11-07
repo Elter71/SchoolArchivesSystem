@@ -1,7 +1,7 @@
 class ResourcesMessage
   def initialize(model, errors)
     @errors = errors
-    @model_name = model.class.name.downcase
+    @model_name = model
   end
 
   def message
@@ -15,6 +15,6 @@ class ResourcesMessage
   end
 
   def get_resources_from_locales(resources)
-    I18n.t("activerecord.attributes.#{@model_name}.#{resources}")
+    I18n.t("active_interaction.attributes.#{@model_name}.#{resources}")
   end
 end
