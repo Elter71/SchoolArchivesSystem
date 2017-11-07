@@ -7,7 +7,7 @@ hr
     h5 <span class="label label-info">#{post.tag}</span>
     div class="row"
       div class="col-sm-3"
-        img class="img-thumbnail" src="#{get_thumbnail(post)}"
+        img class="img-thumbnail" src="#{get_thumbnail(post)}" onerror='this.src="notfound.jpg"'
       div class="col-sm-8"
         p
           = post.description
