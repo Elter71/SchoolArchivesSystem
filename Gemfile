@@ -30,12 +30,14 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
-gem 'bootstrap'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'cancancan'
 gem 'slim-rails'
 gem 'activemodel'
 gem 'active_interaction'
+gem 'bootstrap-sass', require: true
+gem 'autoprefixer-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
