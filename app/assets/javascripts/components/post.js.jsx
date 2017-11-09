@@ -14,9 +14,12 @@ class Post extends React.Component {
 
     componentDidMount() {
         this.get_post_by_id(this.state.id);
+
     }
 
+
     render_request_data(data) {
+        console.log(data);
         this.setState({
             id: data.id,
             title: data.title,
@@ -24,6 +27,13 @@ class Post extends React.Component {
             tag: data.tag,
             thumbnail: data.thumbnail,
             created_at: data.created_at
+        });
+        this.get_user_by_id(data.user_id);
+    }
+
+    add_full_name(data) {
+        this.setState({
+            author_full_name: data.first_name + " " + data.last_name
         });
     }
 
@@ -35,6 +45,20 @@ class Post extends React.Component {
         })
             .then(response => {
                 this.render_request_data(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    get_user_by_id(id) {
+        axios({
+            method: 'get',
+            url: '/user/' + id,
+            responseType: 'json'
+        })
+            .then(response => {
+                this.add_full_name(response.data);
             })
             .catch(function (error) {
                 console.log(error);
