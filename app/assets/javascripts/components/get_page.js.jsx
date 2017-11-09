@@ -45,7 +45,7 @@ class GetPage extends React.Component {
                     <ButtonDisplay onClick={() => this.handleClick(3)} active={this.is_active(3)}
                                    display_name="Szczegóły"/>
                 </ul>
-                {React.createElement(this.state.display_component, null)}
+                {React.createElement(this.state.display_component, {id_post: this.props.id_post})}
             </div>
 
         )

@@ -2,7 +2,7 @@ class Post extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 3,
+            id: this.props.id_post,
             title: "",
             description: "",
             tag: "",
