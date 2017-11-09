@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   get 'file/:id/:file_name', to: 'file#get'
   get 'files/:id', to: 'file#get_all'
   get 'post/:id', to: 'post#get'
+  get 'user/:id', to: 'user#get'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

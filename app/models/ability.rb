@@ -7,14 +7,14 @@ class Ability
   end
 
   private def user(me)
-    can :create, :post
+    can :create, Post
     can :manage, me
-    can :delete, me.post
+    can :delete, me.posts # why it don't work?
   end
 
   private def admin
+    can :manage, User.all
     can :change, Role
-    can :manage, :post
+    can :manage, Post.all
   end
-
 end
