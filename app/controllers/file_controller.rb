@@ -10,13 +10,20 @@ class FileController < ApplicationController
         format.html {
           render body: '', status: 422, content_type: 'text/html'
         }
-        format.json {
-          render json: outcome.errors.messages, status: 422
+        format.json {render json: outcome.errors.messages, status: 422
         }
       end
     end
   end
 
-  def get_all;
+  def get_all
+  end
+
+  def get_all_image
+
+  end
+
+  def download_all_files
+
   end
 end
