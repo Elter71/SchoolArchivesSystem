@@ -38,6 +38,7 @@ gem 'active_interaction'
 gem 'bootstrap-sass', require: true
 gem 'autoprefixer-rails'
 gem 'react-rails'
+gem 'axios_rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

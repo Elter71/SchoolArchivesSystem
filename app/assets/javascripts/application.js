@@ -18,10 +18,13 @@
 //= require react_ujs
 //= require components
 //= require_tree .
+//= require axios
 
 
+const token = $('meta[name="csrf-token"]').attr('content');
 $.ajaxSetup({
     headers: {
-        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        'X-CSRF-Token': token
     }
-})
+});
+axios.defaults.headers.common['X-CSRF-Token'] = token;
