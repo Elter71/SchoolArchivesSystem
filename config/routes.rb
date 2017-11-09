@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_for :users, controllers: {registrations: 'registrations'}
   get 'home/index'
   root to: 'home#index'
   get 'post/new'
@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   post 'post/new', to: 'post#create'
   get 'file/:id/:file_name', to: 'file#get'
   get 'files/:id', to: 'file#get_all'
+  get 'post/:id', to: 'post#get'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
