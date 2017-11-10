@@ -2,8 +2,6 @@ class UserController < ApplicationController
   before_action :authenticate_user!
   before_action AdminFilter, except: :get
 
-  def settings;
-  end
 
   def roles
     render json: Role.all
@@ -14,7 +12,7 @@ class UserController < ApplicationController
   end
 
   def get
-    outcome = FindUser.run(params.merge(user: current_user))
+    outcome = FindUser.run(params.merge(user: current_user ))
     if outcome.valid?
       render json: outcome.result
     else

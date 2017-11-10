@@ -6,8 +6,8 @@ class FindFile < ActiveInteraction::Base
   validates :id, :file_name, presence: true
 
   def execute
-    Dir.glob(Configuration.instance.server_path + @id.to_s + "/#{@file_name}.*").select do |file|
-      @file = read_file(file)
+    Dir.glob(Configuration.instance.server_path + @id.to_s + "/#{@file_name}.*").select do |file_path|
+      @file = read_file(file_path)
     end
     check_is_error
   end
@@ -18,17 +18,15 @@ class FindFile < ActiveInteraction::Base
 
   private
 
-  def read_file(file)
-    if File.file? file
-      @file_type = File.extname(file)
-      File.open(file)
+  def read_file(file_path)
+    if File.file? file_path
+      @file_type = File.extname(file_path)
+      File.open(file_path)
     end
   end
 
   def check_is_error
-    unless @file
-      errors.add(:post_file, 'does not exist')
-    end
+    errors.add(:post_file, 'does not exist') unless @file
   end
 
 end
