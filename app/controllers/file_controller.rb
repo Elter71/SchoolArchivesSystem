@@ -32,6 +32,14 @@ class FileController < ApplicationController
   end
 
   def download_all_files
-   
+    outcome = CreateZipFiles.run(params.permit(:id))
+    if outcome.valid?
+      send_data(outcome.zip_stream.read, filename: outcome.zip_name)
+    else
+      respond_to do |format|
+        format.html {render body: '', status: 422, content_type: 'text/html'}
+        format.json {render json: outcome.errors.messages, status: 422}
+      end
+    end
   end
 end
