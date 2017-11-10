@@ -39,6 +39,8 @@ gem 'bootstrap-sass', require: true
 gem 'autoprefixer-rails'
 gem 'react-rails'
 gem 'axios_rails'
+gem 'rubyzip'
+gem 'zip-zip'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
