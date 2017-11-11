@@ -17,7 +17,7 @@ class FindUser < ActiveInteraction::Base
   private
 
   def if_return_full_user(user)
-    if @user.ability.can?(:manage, user)
+    if @user.ability.can?(:see_details, user)
       user
     else
       return_only_name(user)

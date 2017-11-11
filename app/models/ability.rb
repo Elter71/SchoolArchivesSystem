@@ -8,14 +8,14 @@ class Ability
 
   private def user(me)
     can :create, Post
-    can :manage, me
-    can :delete, me.posts # why it don't work?
+    can :change_password, me
+    can :see_details, me
+    can :delete, me.posts.each {|post| post}
   end
 
   private def admin
-    can :manage, User.all
-    can :change, Role
-    can :manage, Post.all
+    can :manage, Post
+    can :manage, User
   end
 
 end
