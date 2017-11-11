@@ -8,7 +8,8 @@ class Post extends React.Component {
             tag: "",
             thumbnail: "",
             created_at: "",
-            author_full_name: props.author_full_name
+            author_full_name: props.author_full_name,
+            image_error: false
         };
     }
 
@@ -26,9 +27,10 @@ class Post extends React.Component {
             description: data.description,
             tag: data.tag,
             thumbnail: data.thumbnail,
-            created_at: data.created_at
+            created_at: data.created_at,
         });
         this.get_user_by_id(data.user_id);
+
     }
 
     add_full_name(data) {
@@ -65,20 +67,35 @@ class Post extends React.Component {
             });
     }
 
+    handleError() {
+        this.setState({image_error: true});
+    }
+
+    get_root_path() {
+        var path = location.protocol + '//' + location.host + "/";
+        return path;
+    }
 
     render() {
+        var img = <img className="img-thumbnail" onError={() => this.handleError()}
+                       src={this.get_root_path() + "file/" + this.state.id + "/" + this.state.thumbnail}/>
+        if (this.state.image_error) {
+            img = <img className="img-thumbnail" onError={() => this.handleError()}
+                       src={this.get_root_path() + "notfound.jpg"}/>
+        }
+
         return (
-            <div><h2>{this.state.title}</h2><h5><span className="glyphicon glyphicon-time"></span> Dodany
+            <div><h2>{this.state.title}</h2><h5><span className="glyphicon glyphicon-time"/> Dodany
                 przez {this.state.author_full_name},
                 {this.state.created_at}</h5><h5><span className="label label-info">{this.state.tag}</span></h5>
                 <div className="row">
-                    <div className="col-sm-3"><img className="img-thumbnail"
-                                                   src={"http://0.0.0.0:3000/file/" + this.state.id + "/" + this.state.thumbnail}/>
+                    <div className="col-sm-3">
+                        {img}
                     </div>
                     <div className="col-sm-8"><p>
                         {this.state.description}
                     </p></div>
                 </div>
-            </div>)
+            </div>);
     }
 }
