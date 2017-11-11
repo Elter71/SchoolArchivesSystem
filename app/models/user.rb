@@ -16,6 +16,10 @@ class User < ApplicationRecord
     Ability.new(self)
   end
 
+  def active_for_authentication?
+    super && active
+  end
+
   private
 
   def set_default_role
