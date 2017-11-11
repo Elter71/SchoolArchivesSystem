@@ -2,8 +2,8 @@ class GetPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            display_component: Gallery,
-            active: 1
+            display_component: Post,
+            active: 3
         };
     }
 
@@ -38,12 +38,13 @@ class GetPage extends React.Component {
         return (
             <div>
                 <ul className="nav nav-tabs nav-justified">
+                    <ButtonDisplay onClick={() => this.handleClick(3)} active={this.is_active(3)}
+                                   display_name="Szczegóły"/>
                     <ButtonDisplay onClick={() => this.handleClick(1)} active={this.is_active(1)}
                                    display_name="Galeria"/>
                     <ButtonDisplay onClick={() => this.handleClick(2)} active={this.is_active(2)}
                                    display_name="List plików"/>
-                    <ButtonDisplay onClick={() => this.handleClick(3)} active={this.is_active(3)}
-                                   display_name="Szczegóły"/>
+
                 </ul>
                 {React.createElement(this.state.display_component, {id_post: this.props.id_post})}
             </div>

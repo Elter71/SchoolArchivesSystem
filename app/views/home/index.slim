@@ -5,7 +5,7 @@ hr
     h2 = post.title
     h5 <span class="glyphicon glyphicon-time"></span> Dodany przez #{post.user.first_name} #{post.user.last_name}, #{post.created_at}
     h5 <span class="label label-info">#{post.tag}</span>
-    div class="row"
+    div class="row" onClick="go_to_post(#{post.id})"
       div class="col-sm-3"
         img class="img-thumbnail" src="#{get_thumbnail(post)}" onerror='this.src="notfound.jpg"'
       div class="col-sm-8"
