@@ -13,4 +13,13 @@ module ApplicationHelper
     end
   end
 
+  def stylesheet_tag(controller)
+    with_out_controller = %w(devise/sessions devise/passwords)
+    render = true
+    with_out_controller.each do |with_out|
+      render = false if controller == with_out
+    end
+    stylesheet_link_tag controller if render
+  end
+
 end

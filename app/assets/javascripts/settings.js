@@ -17,7 +17,7 @@ new Vue({
             var that = this;
             $.ajax({
                 method: 'GET',
-                url: '/users',
+                url: '/users/all',
                 dataType: "json",
                 success: function (res) {
                     that.users = res;

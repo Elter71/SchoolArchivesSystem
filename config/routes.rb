@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'post/new'
   get 'user/settings'
   get 'roles', to: 'user#roles'
-  get 'users', to: 'user#users'
+  get 'users/all', to: 'user#users'
   post 'post/new', to: 'post#create'
   get 'file/:id/:file_name', to: 'file#get'
   get 'files/:id/download', to: 'file#download_all_files'
