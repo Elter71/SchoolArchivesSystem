@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def account_update_params_role
-    params.require(:user).permit(:email, :role_id)
+    params.require(:user).permit(:email, :role_id, :active)
   end
 
   def sign_up(resource_name, resource)

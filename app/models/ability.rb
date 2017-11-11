@@ -17,4 +17,5 @@ class Ability
     can :change, Role
     can :manage, Post.all
   end
+
 end
