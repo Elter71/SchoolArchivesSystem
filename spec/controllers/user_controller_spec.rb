@@ -1,6 +1,8 @@
 require 'spec_helper'
 describe UserController do
+
   describe 'GET roles' do
+
     it 'when admin' do
       sign_in FactoryBot.create(:user, :admin)
       get :roles
@@ -36,21 +38,27 @@ describe UserController do
       get :users
       expect(response).to redirect_to new_user_session_path
     end
+
   end
+
   describe 'GET user/:id' do
     login_user
+
     it 'when id = asking user id' do
       get :get, params: {id: User.first.id}
       expect(response.body).to eq(User.first.to_json)
     end
+
     it 'when id is empty' do
       get :get, params: {id: ''}
       expect(response).to have_http_status(422)
     end
+
     it 'when user from id not exist' do
       get :get, params: {id: 2}
       expect(response).to have_http_status(422)
     end
+
     it 'when id is not asking user id' do
       user = FactoryBot.create(:user, email: 'new@mail.com')
       get :get, params: {id: 2}
@@ -58,5 +66,7 @@ describe UserController do
       expect(parsed_response['first_name']).to eq(user.first_name)
       expect(parsed_response['last_name']).to eq(user.last_name)
     end
+
   end
+
 end
