@@ -40,8 +40,8 @@ describe UserController do
   describe 'GET user/:id' do
     login_user
     it 'when id = asking user id' do
-      get :get, params: {id: User.all.first.id}
-      expect(response.body).to eq(User.all.first.to_json)
+      get :get, params: {id: User.first.id}
+      expect(response.body).to eq(User.first.to_json)
     end
     it 'when id is empty' do
       get :get, params: {id: ''}
