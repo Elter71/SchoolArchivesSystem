@@ -37,9 +37,9 @@ describe UserController do
       expect(response).to redirect_to new_user_session_path
     end
   end
-  describe 'GET user' do
+  describe 'GET user/:id' do
     login_user
-    it 'when params id = asking user id' do
+    it 'when id = asking user id' do
       get :get, params: {id: User.all.first.id}
       expect(response.body).to eq(User.all.first.to_json)
     end
@@ -51,7 +51,7 @@ describe UserController do
       get :get, params: {id: 2}
       expect(response).to have_http_status(422)
     end
-    it 'when params id is not asking user id' do
+    it 'when id is not asking user id' do
       user = FactoryBot.create(:user, email: 'new@mail.com')
       get :get, params: {id: 2}
       parsed_response = JSON.parse(response.body)
