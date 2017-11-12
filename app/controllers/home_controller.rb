@@ -3,8 +3,5 @@ class HomeController < ApplicationController
 
   def index
     @post = Post.all
-    @post.each do |id|
-      id.thumbnail
-    end
   end
 end
