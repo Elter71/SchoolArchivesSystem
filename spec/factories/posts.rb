@@ -6,5 +6,6 @@ FactoryBot.define do
     description 'Description'
     tag 'tag'
     thumbnail ''
+    user_id 1
   end
 end
