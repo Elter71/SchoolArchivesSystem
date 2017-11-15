@@ -1,7 +1,5 @@
 describe PostController do
-
   describe 'POST new' do
-
     before(:all) do
       @conf = Configuration.instance
       @path = "#{Rails.root}/spec/factories/ftp/"
@@ -37,15 +35,29 @@ describe PostController do
       expect(flash[:alert]).to_not be nil
     end
 
+    it 'is saving file' do
+      @file = Rack::Test::UploadedFile.new("#{Rails.root}//spec/factories/file.txt",'text')
+      @img = Rack::Test::UploadedFile.new("#{Rails.root}/spec/factories/img.png", 'image/png')
+
+      sign_in FactoryBot.create(:user)
+      allow(@conf).to receive(:server_path) {@path}
+      post = FactoryBot.build(:post, user: User.first).attributes
+      post[:files] = [@img,@file]
+      post 'create', params: {post: post}
+
+      expect(File.exist?("#{@path}#{Post.first.id}/file.txt")).to be true
+      expect(File.exist?("#{@path}#{Post.first.id}/img.png")).to be true
+
+      Post.first.destroy
+    end
+
     it 'not authenticate use' do
       post 'create'
       expect(response).to redirect_to new_user_session_path
     end
-
   end
 
   describe 'GET new' do
-
     it 'assigns @post' do
       sign_in FactoryBot.create(:user)
       get :new
@@ -65,7 +77,6 @@ describe PostController do
   end
 
   describe 'GET post/:id' do
-
     it 'html renders the get template' do
       sign_in FactoryBot.create(:user)
       post = FactoryBot.create(:post)
@@ -82,7 +93,6 @@ describe PostController do
       get :get, params: {id: post.id}, format: :json
       expect(response.body).to eq(post.to_json)
     end
-
 
     it 'html with incorrect param returns a 422 status' do
       sign_in FactoryBot.create(:user)
