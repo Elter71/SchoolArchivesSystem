@@ -11,7 +11,7 @@ describe PostController do
       sign_in FactoryBot.create(:user)
       allow(@conf).to receive(:server_path) {@path}
 
-      post = FactoryBot.build(:post, user: User.first).attributes
+      post = FactoryBot.build(:post).attributes
       post 'create', params: {post: post}
 
       expect(response).to redirect_to root_path
@@ -22,8 +22,7 @@ describe PostController do
     it 'redirect to post new path' do
       sign_in FactoryBot.create(:user)
       allow(@conf).to receive(:server_path) {@path}
-
-      post = FactoryBot.build(:post, user: User.first, title: nil).attributes
+      post = FactoryBot.build(:post, title: nil).attributes
       post 'create', params: {post: post}
 
       expect(response).to redirect_to post_new_path
@@ -32,7 +31,7 @@ describe PostController do
       sign_in FactoryBot.create(:user)
       allow(@conf).to receive(:server_path) {@path}
 
-      post = FactoryBot.build(:post, user: User.first, title: nil).attributes
+      post = FactoryBot.build(:post, title: nil).attributes
       post 'create', params: {post: post}
 
       expect(flash[:alert]).to_not be nil
@@ -69,7 +68,7 @@ describe PostController do
 
     it 'html renders the get template' do
       sign_in FactoryBot.create(:user)
-      post = FactoryBot.create(:post, user: User.first)
+      post = FactoryBot.create(:post)
 
       get :get, params: {id: post.id}
 
@@ -78,7 +77,7 @@ describe PostController do
 
     it 'json render @post object' do
       sign_in FactoryBot.create(:user)
-      post = FactoryBot.create(:post, user: User.first)
+      post = FactoryBot.create(:post)
 
       get :get, params: {id: post.id}, format: :json
       expect(response.body).to eq(post.to_json)
