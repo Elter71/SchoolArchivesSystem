@@ -5,11 +5,12 @@ class CreateZipFiles < ActiveInteraction::Base
   validates :id, presence: true
 
   def execute
-    @zip_stream = Zip::OutputStream.write_buffer do |stream|
-      put_files_into_zip_file(stream)
+    if Post.find_by_id(@id)
+      create_zip_stream
+      @zip_stream.rewind
+    else
+      add_errors
     end
-    @zip_stream.rewind
-    check_is_error
   end
 
   def zip_name
@@ -17,6 +18,12 @@ class CreateZipFiles < ActiveInteraction::Base
   end
 
   private
+
+  def create_zip_stream
+    @zip_stream = Zip::OutputStream.write_buffer do |stream|
+      put_files_into_zip_file(stream)
+    end
+  end
 
   def put_files_into_zip_file(stream)
     Dir.glob(Configuration.instance.server_path + @id.to_s + '/*').select do |file_path|
@@ -33,9 +40,7 @@ class CreateZipFiles < ActiveInteraction::Base
     File.open(file_path).read
   end
 
-
-  def check_is_error
-    errors.add(:post_file, 'does not exist') unless @zip_stream
+  def add_errors
+    errors.add(:post, 'does not exist')
   end
-
 end

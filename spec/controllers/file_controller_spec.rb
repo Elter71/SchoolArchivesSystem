@@ -188,7 +188,7 @@ describe FileController do
       sign_in FactoryBot.create(:user)
       get :download_all_files, params: {id: 324}, format: :json
       parsed_response = JSON.parse(response.body)
-      expect(parsed_response['post_file']).to eq(['does not exist'])
+      expect(parsed_response['post']).to eq(['does not exist'])
     end
 
     it 'not authenticate use' do
