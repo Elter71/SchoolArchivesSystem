@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe 'CreateZipFile interaction' do
+describe 'FindFiles interaction' do
   before(:all) do
     @config = Configuration.instance
     @path = "#{Rails.root}/spec/factories/ftp/"
