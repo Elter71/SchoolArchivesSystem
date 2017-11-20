@@ -4,11 +4,11 @@ class RegistrationsController < Devise::RegistrationsController
 
 
   def update
-    update_services = UpdateServices.new(self)
-    if current_user.ability.can? :change, Role
-      update_services.change_role(account_update_params_role)
+    outcome = UpdateUser.run(params.merge(user: current_user))
+    if outcome.valid?
+      render json: outcome.result
     else
-      update_services.update_with_password(resource, account_update_params)
+      render json: outcome.errors.messages, status: 422
     end
   end
 
