@@ -109,6 +109,7 @@ describe 'UpdateUser interaction' do
     interaction = UpdateUser.run(id: update_user.id, user: admin, role_id: 2)
     expect(interaction.valid?).to be true
     expect(interaction.result.role_id).to eq(2)
+    expect(User.find(update_user.id).role_id).to eq(2)
   end
 
   it 'is update active *by admin*' do
@@ -118,6 +119,7 @@ describe 'UpdateUser interaction' do
     interaction = UpdateUser.run(id: update_user.id, user: admin, active: false)
     expect(interaction.valid?).to be true
     expect(interaction.result.active).to eq(false)
+    expect(User.find(update_user.id).active).to be false
   end
 
   it 'is update password *by admin*' do
@@ -128,6 +130,7 @@ describe 'UpdateUser interaction' do
     interaction = UpdateUser.run(id: update_user.id, user: admin, password: 'newpassword')
     expect(interaction.valid?).to be true
     expect(interaction.result.password).not_to eq(old_password)
+    expect(User.find(update_user.id).password).not_to eq(old_password)
   end
 
   it 'is update last name *by admin*' do
@@ -137,6 +140,7 @@ describe 'UpdateUser interaction' do
     interaction = UpdateUser.run(id: update_user.id, user: admin, last_name: 'NAME')
     expect(interaction.valid?).to be true
     expect(interaction.result.last_name).to eq('NAME')
+    expect(User.find(update_user.id).last_name).to eq('NAME')
   end
 
   it 'is update first name *by admin*' do
@@ -146,6 +150,7 @@ describe 'UpdateUser interaction' do
     interaction = UpdateUser.run(id: update_user.id, user: admin, first_name: 'NAME')
     expect(interaction.valid?).to be true
     expect(interaction.result.first_name).to eq('NAME')
+    expect(User.find(update_user.id).first_name).to eq('NAME')
   end
 
   it 'is update password *by user*' do
@@ -155,6 +160,7 @@ describe 'UpdateUser interaction' do
     interaction = UpdateUser.run(id: user.id, user: user, password: 'newpassword')
     expect(interaction.valid?).to be true
     expect(interaction.result.password).not_to eq(old_password)
+    expect(User.find(user.id).password).not_to eq(old_password)
   end
 
   it 'is update role *by user*' do
@@ -162,6 +168,7 @@ describe 'UpdateUser interaction' do
 
     interaction = UpdateUser.run(id: user.id, user: user, role_id: 2)
     expect(interaction.result.role_id).to eq(1)
+    expect(User.find(user.id).role_id).to eq(1)
   end
 
   it 'is update active *by user*' do
@@ -169,6 +176,7 @@ describe 'UpdateUser interaction' do
 
     interaction = UpdateUser.run(id: user.id, user: user, active: false)
     expect(interaction.result.active).to eq(true)
+    expect(User.find(user.id).active).to be true
   end
 
   it 'is update last name *by user*' do
@@ -178,6 +186,7 @@ describe 'UpdateUser interaction' do
     interaction = UpdateUser.run(id: user.id, user: user, last_name: 'NAME')
 
     expect(interaction.result.last_name).to eq(user.last_name)
+    expect(User.find(user.id).last_name).to eq(user.last_name)
   end
 
   it 'is update first name *by user*' do
@@ -185,5 +194,6 @@ describe 'UpdateUser interaction' do
 
     interaction = UpdateUser.run(id: user.id, user: user, first_name: 'NAME')
     expect(interaction.result.first_name).to eq(user.first_name)
+    expect(User.find(user.id).first_name).to eq(user.first_name)
   end
 end

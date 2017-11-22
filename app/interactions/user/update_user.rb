@@ -43,8 +43,8 @@ class UpdateUser < ActiveInteraction::Base
   def delete_nil_from_input
     params = inputs
     params.delete(:user)
-    params.each_with_index do |key, value|
-      params.delete(key) unless value
+    params.each do |key|
+      params.delete(key[0]) if key[1].nil?
     end
     params
   end
@@ -52,7 +52,7 @@ class UpdateUser < ActiveInteraction::Base
   def only_password_params(params)
     result = {}
     if params['password']
-      result = {id: params['id'], password: params['password']}
+      result = { id: params['id'], password: params['password'] }
     end
     result
   end
