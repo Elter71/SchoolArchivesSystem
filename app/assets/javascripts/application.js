@@ -19,7 +19,7 @@
 //= require components
 //= require_tree .
 //= require axios
-
+//= require vue
 
 const token = $('meta[name="csrf-token"]').attr('content');
 $.ajaxSetup({

@@ -39,6 +39,7 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'react-rails'
 gem 'rubyzip'
 gem 'slim-rails'
+gem 'vuejs-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
