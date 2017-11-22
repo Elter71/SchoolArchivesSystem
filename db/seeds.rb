@@ -8,3 +8,6 @@
 ['user', 'admin'].each do |role|
   Role.find_or_create_by(name: role)
 end
+user = User.create(email: 'admin@ezn.pl',password: 'admin12', first_name: 'Imię',last_name: 'Nazwisko')
+user.role = Role.find(2)
+user.save
