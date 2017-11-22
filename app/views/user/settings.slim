@@ -1,12 +1,73 @@
-table id='usersTable' class='table'
-  tr
-    th Imie
-    th Nazwisko
-    th Email
-  tr v-for="user in users"
-    td
-      '{{user.first_name}}
-    td
-      '{{user.last_name}}
-    td
-      '{{user.email}}
+script type='text/x-template' id='modal-template'
+  transition name='modal'
+    div class="modal-mask"
+      div class="modal-wrapper"
+        div class="modal-container"
+
+          div v-if="alert.error" class="alert alert-danger"
+            '{{alert.message}}
+          div v-if="alert.error == false" class="alert alert-success"
+            '{{alert.message}}
+
+          h2 Ustawienia użytkownika
+          hr
+          form
+            div class='form-horizontal'
+              div class='form-group'
+                label class='control-label col-sm-2'
+                  'Email:
+                div class='col-sm-10'
+                  label class='form-control'
+                    '{{user.email}}
+
+              div class='form-group'
+                label class='control-label col-sm-2'
+                  'Imie:
+                div class='col-sm-10'
+                  input type='text' class='form-control' v-model='first_name'
+
+              div class='form-group'
+                label class='control-label col-sm-2'
+                  'Nazwisko:
+                div class='col-sm-10'
+                  input type='text' class='form-control' v-model='last_name'
+
+              div class='form-group'
+                label for='role' class='control-label col-sm-2'
+                  'Rola:
+                div class='col-sm-10'
+                  select class='form-control' v-model='role'
+                    option v-for='role in roles' v-bind:value='role.id'
+                      '{{role.name}}
+              div class='form-group'
+                label class='control-label col-sm-2'
+                  'Aktywny:
+                div class='col-sm-10'
+                  div class='radio-inline'
+                    input type='radio' v-model="active" value='true'
+                      'Tak
+                  div class='radio-inline'
+                    input type='radio' v-model="active" value='false'
+                      'Nie
+              div class='form-group'
+                div class='col-sm-9'
+                  button class= "btn btn-danger" @click='$emit("close")'
+                    'Wyjście
+                div class='col-sm-3'
+                  button class= "btn btn-primary right" @click='updateUserData()'
+                    'Zaktualizuj
+
+div id='usersTable'
+  table class='table'
+    tr
+      th Imie
+      th Nazwisko
+      th Email
+    tr v-for="user in users" @click='showModal(user)'
+      td
+        '{{user.first_name}}
+      td
+        '{{user.last_name}}
+      td
+        '{{user.email}}
+  modal v-if="displayModal" :user='clickedUser' @close="displayModal = false"
