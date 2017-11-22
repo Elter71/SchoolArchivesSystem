@@ -45,8 +45,8 @@ describe UserController do
     login_user
 
     it 'when id = asking user id' do
-      get :get, params: {id: User.first.id}
-      expect(response.body).to eq(User.first.to_json)
+      get :get, params: {id: User.find_by_email('some@example.com').id}
+      expect(response.body).to eq(User.find_by_email('some@example.com').to_json)
     end
 
     it 'when id is empty' do
@@ -55,7 +55,7 @@ describe UserController do
     end
 
     it 'when user from id not exist' do
-      get :get, params: {id: 2}
+      get :get, params: {id: 55}
       expect(response).to have_http_status(422)
     end
 

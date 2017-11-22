@@ -27,7 +27,7 @@ describe 'FindUser Interaction' do
   end
   it "can't find user" do
     user = FactoryBot.create(:user)
-    out_value = FindUser.run(id: 2, user: user)
+    out_value = FindUser.run(id: 55, user: user)
 
     expect(out_value.valid?).to be false
     expect(out_value.errors.messages).to eq(id: ['does not exist'])

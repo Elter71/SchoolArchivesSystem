@@ -6,7 +6,7 @@ describe 'Post' do
   end
 
   it 'is invalid without user' do
-    expect(FactoryBot.build(:post).save).to be false
+    expect(FactoryBot.build(:post,user_id: 123).save).to be false
   end
   it 'is invalid without title' do
     user = FactoryBot.create(:user)
