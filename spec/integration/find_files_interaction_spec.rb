@@ -30,7 +30,7 @@ describe 'FindFiles interaction' do
 
     interactor = FindFiles.run(id: 1)
     Post.first.delete
-    expect(interactor.files_name).to eq(['file.txt', 'img.png'])
+    expect(interactor.files_name).to eq(['img.png', 'file.txt'])
   end
 
   it 'is invalid without id' do
