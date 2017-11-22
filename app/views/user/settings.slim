@@ -1,0 +1,12 @@
+table id='usersTable' class='table'
+  tr
+    th Imie
+    th Nazwisko
+    th Email
+  tr v-for="user in users"
+    td
+      '{{user.first_name}}
+    td
+      '{{user.last_name}}
+    td
+      '{{user.email}}
