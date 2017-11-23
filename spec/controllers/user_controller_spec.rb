@@ -22,10 +22,15 @@ describe UserController do
   end
 
   describe 'GET users' do
-    it 'when admin' do
+    it 'when admin *json*' do
+      sign_in FactoryBot.create(:user, :admin)
+      get :users, format: 'json'
+      expect(response).to be_success
+    end
+    it 'when admin *html' do
       sign_in FactoryBot.create(:user, :admin)
       get :users
-      expect(response).to be_success
+      expect(response).to redirect_to root_path
     end
 
     it 'when user' do

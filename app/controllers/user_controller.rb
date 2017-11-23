@@ -8,7 +8,10 @@ class UserController < ApplicationController
   end
 
   def users
-    render json: User.all
+    respond_to do |format|
+      format.html {redirect_to root_path}
+      format.json {render json: User.all}
+    end
   end
 
   def get
