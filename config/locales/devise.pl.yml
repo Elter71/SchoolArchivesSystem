@@ -23,6 +23,7 @@ pl:
         password: "Hasło"
         role: "Role "
         password_confirmation: "Hasła"
+        reset_password_token: 'Link'
     errors:
       models:
         post:
@@ -33,6 +34,10 @@ pl:
               blank: "nie może być pusty."
         user:
           attributes:
+            email:
+              blank: "nie może być pusty."
+            reset_password_token:
+              invalid: 'zmiany hasła wygasł.'
             password:
               blank: "nie może być puste."
               too_short: "jest za krótkie."
