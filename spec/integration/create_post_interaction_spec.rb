@@ -1,25 +1,17 @@
 require 'rails_helper'
 describe 'CreatePost interaction' do
 
-  before(:all) do
-    @config = Configuration.instance
-    @path = "#{Rails.root}/spec/factories/ftp/"
-    @factories_path = "#{Rails.root}/spec/factories/"
-  end
-
   it 'is valid' do
-    allow(@config).to receive(:server_path) {@path}
+    
     FactoryBot.create(:user)
     post = FactoryBot.build(:post).attributes
     interactor = CreatePost.run(post)
 
     expect(interactor.valid?).to be true
-
-    interactor.result.delete
   end
 
   it 'return post on valid' do
-    allow(@config).to receive(:server_path) {@path}
+    
     FactoryBot.create(:user)
     post = FactoryBot.build(:post)
     interactor = CreatePost.run(post.attributes)
@@ -27,18 +19,15 @@ describe 'CreatePost interaction' do
     expect(interactor.result.title).to eq(post.title)
     expect(interactor.result.description).to eq(post.description)
     expect(interactor.result.tag).to eq(post.tag)
-
-    interactor.result.delete
   end
   it 'is create folder' do
-    allow(@config).to receive(:server_path) {@path}
+    
     FactoryBot.create(:user)
     post = FactoryBot.build(:post)
     interactor = CreatePost.run(post.attributes)
 
     is_created = Dir.exist?(@path+"/#{post.id}/")
     expect(is_created).to be true
-    interactor.result.delete
   end
 
   it 'is invalid without title' do
@@ -85,7 +74,7 @@ describe 'CreatePost interaction' do
   end
 
   it 'add thumbnail to post when can find image' do
-    allow(@config).to receive(:server_path) {@path}
+    
     img = Rack::Test::UploadedFile.new(@factories_path+'img.png', 'image/png')
     FactoryBot.create(:user)
     post = FactoryBot.build(:post).attributes
@@ -94,11 +83,9 @@ describe 'CreatePost interaction' do
 
     expect(interactor.result.thumbnail).to eq('img.png')
 
-    interactor.result.delete
   end
 
   it "empty thumbnail to post when can't find image" do
-    allow(@config).to receive(:server_path) {@path}
     file = Rack::Test::UploadedFile.new(@factories_path+'file.txt', 'txt')
     FactoryBot.create(:user)
     post = FactoryBot.build(:post).attributes
@@ -106,12 +93,10 @@ describe 'CreatePost interaction' do
     interactor = CreatePost.run(post)
 
     expect(interactor.result.thumbnail).to eq('')
-
-    interactor.result.delete
   end
 
   it 'save file' do
-    allow(@config).to receive(:server_path) {@path}
+    
     img = Rack::Test::UploadedFile.new(@factories_path+'img.png', 'image/png')
     FactoryBot.create(:user)
     post = FactoryBot.build(:post).attributes
@@ -119,11 +104,9 @@ describe 'CreatePost interaction' do
     interactor = CreatePost.run(post)
 
     expect(File.exist?(@factories_path+'img.png')).to be true
-
-    interactor.result.delete
   end
   it 'save files' do
-    allow(@config).to receive(:server_path) {@path}
+    
     img = Rack::Test::UploadedFile.new(@factories_path+'img.png', 'image/png')
     file = Rack::Test::UploadedFile.new(@factories_path+'file.txt', 'image/png')
     FactoryBot.create(:user)
@@ -133,8 +116,6 @@ describe 'CreatePost interaction' do
 
     expect(File.exist?(@factories_path+'img.png')).to be true
     expect(File.exist?(@factories_path+'file.txt')).to be true
-
-    interactor.result.delete
   end
 
 end

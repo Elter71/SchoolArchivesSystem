@@ -6,7 +6,7 @@ describe FileController do
   end
   describe 'GET file/:id/:file_name' do
     it 'is return file' do
-      allow(@config).to receive(:server_path) {@path}
+      
       file = Rack::Test::UploadedFile.new(@factories_path + 'file.txt', 'txt')
       sign_in FactoryBot.create(:user)
       post = FactoryBot.build(:post).attributes
@@ -14,12 +14,12 @@ describe FileController do
       CreatePost.run(post)
 
       get :get, params: {id: 1, file_name: 'file'}
-      Post.first.delete
+      
       expect(response.header['Content-Transfer-Encoding']).to eq('binary')
     end
 
     it 'is invalid no authentication user' do
-      allow(@config).to receive(:server_path) {@path}
+      
       file = Rack::Test::UploadedFile.new(@factories_path + 'file.txt', 'txt')
       FactoryBot.create(:user)
       post = FactoryBot.build(:post).attributes
@@ -27,7 +27,7 @@ describe FileController do
       CreatePost.run(post)
 
       get :get, params: {id: 1, file_name: 'file'}
-      Post.first.delete
+      
       expect(response).to redirect_to new_user_session_path
     end
 
@@ -39,7 +39,7 @@ describe FileController do
     end
 
     it 'is return status 422 when wrong file name' do
-      allow(@config).to receive(:server_path) {@path}
+      
       file = Rack::Test::UploadedFile.new(@factories_path + 'file.txt', 'txt')
       sign_in FactoryBot.create(:user)
       post = FactoryBot.build(:post).attributes
@@ -47,12 +47,12 @@ describe FileController do
       CreatePost.run(post)
 
       get :get, params: {id: 1, file_name: 'sad'}
-      Post.first.delete
+      
       expect(response).to have_http_status(422)
     end
 
     it 'is error message in body when wrong file name *JSON*' do
-      allow(@config).to receive(:server_path) {@path}
+      
       file = Rack::Test::UploadedFile.new(@factories_path + 'file.txt', 'txt')
       sign_in FactoryBot.create(:user)
       post = FactoryBot.build(:post).attributes
@@ -60,7 +60,7 @@ describe FileController do
       CreatePost.run(post)
 
       get :get, params: {id: 1, file_name: 'sad'}, format: :json
-      Post.first.delete
+      
       parsed_response = JSON.parse(response.body)
       expect(parsed_response['post_file']).to eq(['does not exist'])
     end
@@ -69,7 +69,7 @@ describe FileController do
 
   describe 'GET files/:id' do
     it 'is return files array' do
-      allow(@config).to receive(:server_path) {@path}
+      
       file = Rack::Test::UploadedFile.new(@factories_path + 'file.txt', 'txt')
       sign_in FactoryBot.create(:user)
       post = FactoryBot.build(:post).attributes
@@ -77,7 +77,7 @@ describe FileController do
       CreatePost.run(post)
 
       get :get_all, params: {id: 1}
-      Post.first.delete
+      
       parsed_response = JSON.parse(response.body)
       expect(parsed_response).to eq(['file.txt'])
     end
@@ -104,7 +104,7 @@ describe FileController do
   describe 'files/:id/gallery' do
 
     it 'is return files array' do
-      allow(@config).to receive(:server_path) {@path}
+      
       img = Rack::Test::UploadedFile.new(@factories_path+'img.png', 'image/png')
       sign_in FactoryBot.create(:user)
       post = FactoryBot.build(:post).attributes
@@ -112,13 +112,13 @@ describe FileController do
       CreatePost.run(post)
 
       get :get_all_image, params: {id: 1}
-      Post.first.delete
+      
       parsed_response = JSON.parse(response.body)
       expect(parsed_response).to eq(['img.png'])
     end
 
     it "is return status 422 when can't found image" do
-      allow(@config).to receive(:server_path) {@path}
+      
       file = Rack::Test::UploadedFile.new(@factories_path+'file.txt', 'txt')
       sign_in FactoryBot.create(:user)
       post = FactoryBot.build(:post).attributes
@@ -126,13 +126,13 @@ describe FileController do
       CreatePost.run(post)
 
       get :get_all_image, params: {id: 1}
-      Post.first.delete
+      
       expect(response).to have_http_status(422)
     end
 
 
     it "is error message when can't found image" do
-      allow(@config).to receive(:server_path) {@path}
+      
       file = Rack::Test::UploadedFile.new(@factories_path+'file.txt', 'txt')
       sign_in FactoryBot.create(:user)
       post = FactoryBot.build(:post).attributes
@@ -140,7 +140,7 @@ describe FileController do
       CreatePost.run(post)
 
       get :get_all_image, params: {id: 1}
-      Post.first.delete
+      
       parsed_response = JSON.parse(response.body)
       expect(parsed_response['post_file']).to eq(['does not exist'])
     end
@@ -166,7 +166,7 @@ describe FileController do
 
   describe 'GET files/:id/download' do
     it 'is return files zip' do
-      allow(@config).to receive(:server_path) {@path}
+      
       file = Rack::Test::UploadedFile.new(@factories_path + 'file.txt', 'txt')
       sign_in FactoryBot.create(:user)
       post = FactoryBot.build(:post).attributes
@@ -174,7 +174,7 @@ describe FileController do
       CreatePost.run(post)
 
       get :download_all_files, params: {id: 1}
-      Post.first.delete
+      
       expect(response.header['Content-Transfer-Encoding']).to eq('binary')
     end
 
