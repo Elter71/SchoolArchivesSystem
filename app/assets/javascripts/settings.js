@@ -1,6 +1,5 @@
 //= require axios
 
-
 Vue.component('modal', {
     template: '#modal-template',
     data: function () {
@@ -92,7 +91,7 @@ var UserList = new Vue({
         getUsers: function () {
             axios({
                 method: 'get',
-                url: '/users',
+                url: '/users.json',
                 responseType: 'json'
             })
                 .then(response => {

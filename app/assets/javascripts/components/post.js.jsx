@@ -20,7 +20,6 @@ class Post extends React.Component {
 
 
     render_request_data(data) {
-        console.log(data);
         this.setState({
             id: data.id,
             title: data.title,

@@ -22,9 +22,4 @@
 //= require vue
 
 const token = $('meta[name="csrf-token"]').attr('content');
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-Token': token
-    }
-});
 axios.defaults.headers.common['X-CSRF-Token'] = token;

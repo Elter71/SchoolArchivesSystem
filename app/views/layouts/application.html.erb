@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://unpkg.com/vue"></script>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= stylesheet_tag(params[:controller]) %>
-  <%= csrf_meta_tags %>
+  <%=stylesheet_link_tag 'application', media: 'all'%>
+  <%=stylesheet_tag(params[:controller])%>
+  <%=csrf_meta_tags %>
 </head>
 
 <body>
@@ -52,7 +52,7 @@
       <footer class="container-fluid">
         <p></p>
       </footer>
-  <% else %>
+  <%else%>
       <div class="content">
         <%= yield %>
       </div>
@@ -60,5 +60,5 @@
 
 
   </body>
-<%= javascript_include_tag 'application' %>
+  <%=javascript_include_tag 'application'%>
 </html>

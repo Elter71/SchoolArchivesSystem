@@ -41,6 +41,7 @@ gem 'rubyzip'
 gem 'slim-rails'
 gem 'vuejs-rails'
 
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
