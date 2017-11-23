@@ -58,7 +58,7 @@ describe 'DeletePost interaction' do
   end
 
   it 'invalid without user' do
-    FileUtils.rm_rf(@path + '1/')
+    
 
     user = FactoryBot.create(:user)
     post = FactoryBot.build(:post, user_id: user.id).attributes
@@ -70,7 +70,7 @@ describe 'DeletePost interaction' do
   end
 
   it 'invalid with wrong authorization' do
-    FileUtils.rm_rf(@path + '1/')
+    
 
     user = FactoryBot.create(:user)
     post = FactoryBot.build(:post, user_id: User.first.id).attributes
@@ -83,7 +83,7 @@ describe 'DeletePost interaction' do
   end
 
   it 'no authorization error message' do
-    FileUtils.rm_rf(@path + '1/')
+    
 
     user = FactoryBot.create(:user)
     post = FactoryBot.build(:post, user_id: User.first.id).attributes
@@ -95,8 +95,6 @@ describe 'DeletePost interaction' do
   end
 
   it 'wrong post id error message' do
-    FileUtils.rm_rf(@path + '1/')
-
     user = FactoryBot.create(:user)
     post = FactoryBot.build(:post, user_id: user.id).attributes
     CreatePost.run(post)
@@ -107,7 +105,7 @@ describe 'DeletePost interaction' do
   end
 
   it 'error message without id' do
-    FileUtils.rm_rf(@path + '1/')
+    
 
 
     user = FactoryBot.create(:user)

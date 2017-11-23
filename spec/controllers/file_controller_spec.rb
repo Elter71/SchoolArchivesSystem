@@ -1,9 +1,4 @@
 describe FileController do
-  before(:all) do
-    @config = Configuration.instance
-    @path = "#{Rails.root}/spec/factories/ftp/"
-    @factories_path = "#{Rails.root}/spec/factories/"
-  end
   describe 'GET file/:id/:file_name' do
     it 'is return file' do
       

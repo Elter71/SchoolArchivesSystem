@@ -5,6 +5,16 @@ class PostController < ApplicationController
     @post = Post.new
   end
 
+  def delete
+    outcome = DeletePost.run(params.merge(user: current_user))
+
+    if outcome.valid?
+      render json: '', status: 200
+    else
+      render json: outcome.errors.messages, status: 422
+    end
+  end
+
   def get
     outcome = FindPost.run(params)
     if outcome.valid?

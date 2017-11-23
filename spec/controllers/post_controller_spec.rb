@@ -1,13 +1,9 @@
 describe PostController do
   describe 'POST new' do
-    before(:all) do
-      @conf = Configuration.instance
-      @path = "#{Rails.root}/spec/factories/ftp/"
-    end
 
     it 'redirect_to root path' do
       sign_in FactoryBot.create(:user)
-      allow(@conf).to receive(:server_path) {@path}
+
 
       post = FactoryBot.build(:post).attributes
       post 'create', params: {post: post}
@@ -19,7 +15,7 @@ describe PostController do
 
     it 'redirect to post new path' do
       sign_in FactoryBot.create(:user)
-      allow(@conf).to receive(:server_path) {@path}
+
       post = FactoryBot.build(:post, title: nil).attributes
       post 'create', params: {post: post}
 
@@ -27,7 +23,7 @@ describe PostController do
     end
     it 'flash[:alert] not nil' do
       sign_in FactoryBot.create(:user)
-      allow(@conf).to receive(:server_path) {@path}
+
 
       post = FactoryBot.build(:post, title: nil).attributes
       post 'create', params: {post: post}
@@ -36,13 +32,13 @@ describe PostController do
     end
 
     it 'is saving file' do
-      @file = Rack::Test::UploadedFile.new("#{Rails.root}//spec/factories/file.txt",'text')
+      @file = Rack::Test::UploadedFile.new("#{Rails.root}//spec/factories/file.txt", 'text')
       @img = Rack::Test::UploadedFile.new("#{Rails.root}/spec/factories/img.png", 'image/png')
 
       sign_in FactoryBot.create(:user)
-      allow(@conf).to receive(:server_path) {@path}
+
       post = FactoryBot.build(:post, user: User.first).attributes
-      post[:files] = [@img,@file]
+      post[:files] = [@img, @file]
       post 'create', params: {post: post}
 
       expect(File.exist?("#{@path}#{Post.first.id}/file.txt")).to be true
@@ -127,4 +123,37 @@ describe PostController do
       expect(response).to redirect_to new_user_session_path
     end
   end
+
+  describe 'DELETE post/:id' do
+
+    it 'render status 200 when delete successful' do
+      user = FactoryBot.create(:user)
+      post = FactoryBot.build(:post, user_id: user.id).attributes
+      post = CreatePost.run(post).result
+      sign_in user
+      delete :delete, params: {id: post.id}
+
+      expect(response).to have_http_status(200)
+    end
+
+    it 'render errors message when interaction invalid' do
+      sign_in FactoryBot.create(:user)
+      delete :delete, params: {id: 1235}
+
+      expect(response).to have_http_status(422)
+    end
+
+    it 'render status 422 when interaction invalid' do
+      sign_in FactoryBot.create(:user)
+      delete :delete, params: {id: 1235}
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['post']).to eq(['does not exist'])
+    end
+
+    it 'not authenticate use' do
+      get :get, params: {id: 23}
+      expect(response).to redirect_to new_user_session_path
+    end
+  end
+
 end
